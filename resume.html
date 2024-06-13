@@ -16,14 +16,14 @@
         <div class="row">
           <div class="col-6">
             <h2>Crie Seu Currículo</h2>
-            <form action="resume.php" method="post">
+            <form id="resumeForm">
                 <div class="mb-3" id="name_div">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" minlength="5" required>
                 </div>
                 <div class="mb-3" id="age_div">
                     <label for="age" class="form-label">Idade</label>
-                    <input type="number" class="form-control" id="age" name="age">
+                    <input type="number" class="form-control" id="age" name="age" required min="18">
                 </div>
                 <div class="mb-3" id="gender_div">
                     <label for="gender" class="form-label">Gênero</label>
@@ -47,11 +47,11 @@
                 </div>
                 <div class="mb-3" id="email_div">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3" id="phone_div">
                     <label for="phone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="tel" class="form-control" id="phone" name="phone" required pattern="\(\d{2}\) \d{4,5}\d{4}" title="Format: (XX) XXXXXXXX or (XX) XXXXXXXXX">
                 </div>
                 <div class="mb-3" id="area-div">
                     <label for="area" class="form-label">Área de Atuação</label>
@@ -59,20 +59,24 @@
                         <button class="dropdown-button" onclick="toggleDropdown('area-dropdown')"><span id="selected-area"></span></button>    
                         <div id="area-dropdown" class="dropdown-content">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Ensino Superior Completo" data-target="selected-area">
-                                <label class="form-check-label" for="manual">Ensino Superior Completo</label>
+                                <input class="form-check-input" type="radio" name="area" id="area" value="Área da Saúde" data-target="selected-area">
+                                <label class="form-check-label" for="saude">Área da Saúde</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Ensino Superior Incompleto" data-target="selected-area">
-                                <label class="form-check-label" for="saude">Ensino Superior Incompleto</label>
+                                <input class="form-check-input" type="radio" name="area" id="area" value="Logística" data-target="selected-area">
+                                <label class="form-check-label" for="logistica">Logística</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Ensino Médio Completo" data-target="selected-area">
-                                <label class="form-check-label" for="logistica">Ensino Médio Completo</label>
+                                <input class="form-check-input" type="radio" name="area" id="area" value="Culinária" data-target="selected-area">
+                                <label class="form-check-label" for="culinaria">Culinária</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Ensino Médio Incompleto" data-target="selected-area">
-                                <label class="form-check-label" for="culinaria">Ensino Médio Incompleto</label>
+                                <input class="form-check-input" type="radio" name="area" id="area" value="Trabalho manual" data-target="selected-area">
+                                <label class="form-check-label" for="manual">Trabalho manual</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="area" id="area" value="Engenharia" data-target="selected-area">
+                                <label class="form-check-label" for="engenharia">Engenharia</label>
                             </div>
                         </div>
                     </div>
@@ -83,25 +87,21 @@
                         <button class="dropdown-button" onclick="toggleDropdown('formacao-dropdown')"><span id="selected-formacao"></span></button>    
                         <div id="formacao-dropdown" class="dropdown-content">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Trabalho Manual" data-target="selected-formacao">
+                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Superior Completo" data-target="selected-formacao">
                                 <label class="form-check-label" for="manual">Ensino Superior Completo</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Área da Saúde" data-target="selected-formacao">
-                                <label class="form-check-label" for="saude">Área da Saúde</label>
+                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Superior Incompleto" data-target="selected-formacao">
+                                <label class="form-check-label" for="saude">Ensino Superior Incompleto</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Logística" data-target="selected-formacao">
-                                <label class="form-check-label" for="logistica">Logística</label>
+                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Médio Completo" data-target="selected-formacao">
+                                <label class="form-check-label" for="logistica">Ensino Médio Completo</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Culinária" data-target="selected-formacao">
-                                <label class="form-check-label" for="culinaria">Culinária</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Engenharia" data-target="selected-formacao">
-                                <label class="form-check-label" for="engenharia">Engenharia</label>
-                            </div>
+                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Médio Incompleto" data-target="selected-formacao">
+                                <label class="form-check-label" for="culinaria">Ensino Médio Incompleto</label>
+                            </div>                           
                         </div>
                     </div>
                 </div>
