@@ -37,6 +37,7 @@ function submitResume() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
+    const location = document.getElementById('location').value;
     const age = document.getElementById('age').value;
     const description = document.getElementById('description').value;
 
@@ -84,6 +85,7 @@ function submitResume() {
         name: name,
         email: email,
         phone: phone,
+        location: location,
         age: age,
         gender: gender,
         area: area,

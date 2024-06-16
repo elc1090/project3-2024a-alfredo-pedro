@@ -2,17 +2,91 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    background-color: #f4f4f4;
 }
 
 header {
-    background-color: #333;
-    color: white;
-    padding: 0.5em;
+    background: #50b3a2;
+    color: #ffffff;
+    padding: 30px 0;
+    min-height: 70px;
+    border-bottom: #3c9a89 3px solid;
     text-align: center;
-    letter-spacing: 4px;
-    font-size: 20px;
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    cursor: pointer;
+    /* Cursor mudado para indicar que é clicável */
+}
+
+#home-link {
+    text-decoration: none;
+    /* Remove sublinhado padrão do link */
+    color: inherit;
+    /* Herda a cor do texto do header */
+    display: block;
+    /* Faz o link ocupar toda a área do h1 */
+}
+
+#header-bt {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #50b3a2;
     margin-bottom: 3em;
+}
+
+#header-bt button {
+    background-color: #50b3a2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+}
+
+.content {
+    padding: 20px;
+    background: #ffffff;
+    margin-top: 30px;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+h2,
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #333333;
+    margin: 10px 0;
+}
+
+p {
+    color: #333333;
+    margin: 10px 0;
+}
+
+img {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #buttons {
@@ -25,53 +99,4 @@ header {
 
 .bt {
     padding: 0.5em;
-}
-
-
-/* Dropdown button */
-
-.dropdown-button {
-    background-color: white;
-    /* Blue color */
-    color: black;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    height: 2.5em;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    text-align: left;
-}
-
-.dropdown-button:hover {
-    background-color: #9d9a9a;
-    /* Darker blue on hover */
-}
-
-
-/* Dropdown content */
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgb(193, 193, 193);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 5px;
-    width: 44%;
-}
-
-.dropdown-content label {
-    display: block;
-    font-size: 16px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.dropdown-content input[type="radio"] {
-    margin-left: 1px;
-    margin-right: 10px;
 }
