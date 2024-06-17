@@ -223,8 +223,6 @@ const config = {
 firebase.initializeApp(config)
 const firestore = firebase.firestore() 
 
-firestore.collection("resumes").get();
-
 curriculos = []
 firestore.collection("resumes").get().then((querySnapshot) =>
     {
