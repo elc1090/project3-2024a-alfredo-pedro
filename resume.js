@@ -1,3 +1,42 @@
+
+const config = {
+    apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
+    authDomain: "resume-back-eefe0.firebaseapp.com",
+    databaseURL: "https://resume-back-eefe0-default-rtdb.firebaseio.com",
+    projectId: "resume-back-eefe0",
+    storageBucket: "resume-back-eefe0.appspot.com",
+    messagingSenderId: "717870089790",
+    appId: "1:717870089790:web:44615d3f3c01222d51336f"
+  };
+
+firebase.initializeApp(config)
+const firestore = firebase.firestore() 
+
+firestore.collection("resumes").get().then((querySnapshot) => 
+{
+    console.log(querySnapshot.docs.map(doc => doc.data()));
+});
+
+/*
+//exemplo de como adicionar um item a coleção. 
+!!!!!
+Cuidado, toda vez que esse trecho for executado um novo item será adicionado a coleção
+!!!!!
+
+firestore.collection("resumes").add({
+    "name": "Carlos Ferreira",
+    "email": "carlos.ferreira@example.com",
+    "phone": "(51) 91234-5678",
+    "location": "Porto Alegre",
+    "age": 30,
+    "gender": "Masculino",
+    "area": "Engenharia e Reconstrução",
+    "formation": "Ensino Superior Completo",
+    "description": "Engenheiro civil com foco em reconstrução após desastres."
+});
+*/
+
+
 function toggleDropdown(id) {
     for (const dropdown of document.querySelectorAll('.dropdown-content')) {
         if (dropdown.id !== id) {
