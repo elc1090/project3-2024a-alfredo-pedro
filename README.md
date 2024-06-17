@@ -12,6 +12,7 @@ Alfredo Cossetin Neto - CC
 Pedron Henrique da Silva Rinerasky
 
 ##### Deploy
+https://elc1090.github.io/project3-2024a-alfredo-pedro/
 
 
 #### Desenvolvimento
