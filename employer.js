@@ -1,4 +1,4 @@
-const curriculos = [{
+let curriculos = [{
         "name": "João Silva",
         "email": "joao.silva@example.com",
         "phone": "(51) 98765-4321",
@@ -209,6 +209,34 @@ const curriculos = [{
     }
 ];
 
+
+const config = {
+    apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
+    authDomain: "resume-back-eefe0.firebaseapp.com",
+    databaseURL: "https://resume-back-eefe0-default-rtdb.firebaseio.com",
+    projectId: "resume-back-eefe0",
+    storageBucket: "resume-back-eefe0.appspot.com",
+    messagingSenderId: "717870089790",
+    appId: "1:717870089790:web:44615d3f3c01222d51336f"
+  };
+
+firebase.initializeApp(config)
+const firestore = firebase.firestore() 
+
+firestore.collection("resumes").get();
+
+curriculos = []
+firestore.collection("resumes").get().then((querySnapshot) =>
+    {
+        querySnapshot.docs.map(doc => curriculos.push(doc.data()))
+        // Para cada currículo no JSON, cria e adiciona um card na grade
+        curriculos.forEach(curriculo => {
+        const card = criarCard(curriculo);
+        cardGrid.appendChild(card);
+});
+    })
+    
+
 // Função para criar um card
 function criarCard(curriculo) {
     const card = document.createElement('div');
@@ -257,11 +285,6 @@ function criarCard(curriculo) {
 // Seleciona o container da grade de cards
 const cardGrid = document.getElementById('card-grid');
 
-// Para cada currículo no JSON, cria e adiciona um card na grade
-curriculos.forEach(curriculo => {
-    const card = criarCard(curriculo);
-    cardGrid.appendChild(card);
-});
 
 function aplicarFiltros() {
     const idadeMin = document.getElementById('idade-min').value;

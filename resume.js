@@ -9,13 +9,6 @@ const config = {
     appId: "1:717870089790:web:44615d3f3c01222d51336f"
   };
 
-firebase.initializeApp(config)
-const firestore = firebase.firestore() 
-
-firestore.collection("resumes").get().then((querySnapshot) => 
-{
-    console.log(querySnapshot.docs.map(doc => doc.data()));
-});
 
 /*
 //exemplo de como adicionar um item a coleção. 
@@ -35,6 +28,7 @@ firestore.collection("resumes").add({
     "description": "Engenheiro civil com foco em reconstrução após desastres."
 });
 */
+
 
 
 function toggleDropdown(id) {
@@ -72,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function submitResume() {
+
+async function submitResume() 
+{
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
@@ -120,20 +116,21 @@ function submitResume() {
         return;
     }
 
-    const resumeData = {
-        name: name,
-        email: email,
-        phone: phone,
-        location: location,
-        age: age,
-        gender: gender,
-        area: area,
-        formation: formation,
-        description: description
-    };
+    firebase.initializeApp(config)
+    const firestore = firebase.firestore() 
+    _ = await firestore.collection("resumes").add({
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "location": location,
+        "age": age,
+        "gender": gender,
+        "area": area,
+        "formation": formation,
+        "description": description
+    });
 
-    const jsonData = JSON.stringify(resumeData, null, 2);
-    alert("Generated JSON:\n" + jsonData);
-    console.log(jsonData);
-    // You can send resumeData to the server using fetch or XMLHttpRequest
+    
+
+    window.location.href = "index.html";
 }
