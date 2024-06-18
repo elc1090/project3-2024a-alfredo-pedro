@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-6">
                 <h2>Bem-vindo ao Mãos Que Ajudam!</h2>
-                <p>Em tempos de crise, a solidariedade e a união são mais importantes do que nunca. Nosso site foi criado para conectar trabalhadores que estão dispostos a ajudar e empregadores que precisam de apoio emergencial. Oferecemos um espaço onde
+                    <p>Em tempos de crise, a solidariedade e a união são mais importantes do que nunca. Nosso site foi criado para conectar trabalhadores que estão dispostos a ajudar e empregadores que precisam de apoio emergencial. Oferecemos um espaço onde
                     trabalhadores podem criar perfis detalhados e currículos, e empregadores podem encontrar rapidamente o talento que necessitam.</p>
 
                 <h2>Nossos Serviços</h2>
@@ -53,11 +53,11 @@
                 <p>Junte-se a nós e faça a diferença!</p>
 
                 <div id="buttons" class="text-align">
-                    <div id="bt_resume" class="bt">
-                        <button type="button" class="btn btn-secondary btn-lg">Crie Seu Currículo</button>
+                    <div class="bt">
+                        <button type="button" id="bt_resume2" class="btn btn-secondary btn-lg">Crie Seu Currículo</button>
                     </div>
-                    <div id="bt_employer" class="bt">
-                        <button type="button" class="btn btn-secondary btn-lg">Busque Trabalhadores</button>
+                    <div class="bt">
+                        <button type="button" id="bt_employer2" class="btn btn-secondary btn-lg">Busque Trabalhadores</button>
                     </div>
                 </div>
             </div>
@@ -74,6 +74,14 @@
         });
 
         document.getElementById('bt_employer').addEventListener('click', function() {
+            window.location.href = 'employer.html';
+        });
+
+        document.getElementById('bt_resume2').addEventListener('click', function() {
+            window.location.href = 'resume.html'
+        });
+
+        document.getElementById('bt_employer2').addEventListener('click', function() {
             window.location.href = 'employer.html';
         });
     </script>
