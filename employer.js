@@ -1,4 +1,3 @@
-
 const config = {
     apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
     authDomain: "resume-back-eefe0.firebaseapp.com",
@@ -7,30 +6,31 @@ const config = {
     storageBucket: "resume-back-eefe0.appspot.com",
     messagingSenderId: "717870089790",
     appId: "1:717870089790:web:44615d3f3c01222d51336f"
-  };
+};
 
 firebase.initializeApp(config)
-const firestore = firebase.firestore() 
+const firestore = firebase.firestore()
 
 let curriculos = []
-firestore.collection("resumes").get().then((querySnapshot) =>
-    {
-        querySnapshot.docs.map(doc => curriculos.push(doc.data()))
+firestore.collection("resumes").get().then((querySnapshot) => {
+    querySnapshot.docs.map(doc => curriculos.push(doc.data()))
         // Para cada currículo no JSON, cria e adiciona um card na grade
-        curriculos.forEach(curriculo => {
+    curriculos.forEach(curriculo => {
         const card = criarCard(curriculo);
         cardGrid.appendChild(card);
-});
-    })
-    
+    });
+})
+
 
 // Função para criar um card
 function criarCard(curriculo) {
     const card = document.createElement('div');
     card.className = 'card';
 
+    const age = calcularIdade(curriculo.birthdate);
+
     const nameAge = document.createElement('h2');
-    nameAge.textContent = `${curriculo.name}, ${curriculo.age}`;
+    nameAge.textContent = `${curriculo.name}, ${age}`;
 
     const area = document.createElement('h2');
     area.textContent = `Área de Atuação: ${curriculo.area}`;
@@ -67,6 +67,17 @@ function criarCard(curriculo) {
     card.appendChild(botao);
 
     return card;
+}
+
+function calcularIdade(birthdate) {
+    const hoje = new Date();
+    const dataNascimento = new Date(birthdate);
+    let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+    const mes = hoje.getMonth() - dataNascimento.getMonth();
+    if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+        idade--;
+    }
+    return idade;
 }
 
 // Seleciona o container da grade de cards

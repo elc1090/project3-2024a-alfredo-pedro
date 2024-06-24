@@ -39,9 +39,9 @@
                     <label for="name" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="name" name="name" minlength="5" required>
                 </div>
-                <div class="mb-3" id="age_div">
-                    <label for="age" class="form-label">Idade</label>
-                    <input type="number" class="form-control" id="age" name="age" required min="18">
+                <div class="mb-3" id="birthdate_div">
+                    <label for="birthdate" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate" required>
                 </div>
                 <div class="mb-3" id="gender_div">
                     <label for="gender" class="form-label">Gênero</label>
@@ -152,6 +152,13 @@
 
         document.getElementById('bt_employer').addEventListener('click', function() {
             window.location.href = 'employer.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date();
+            var maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            var maxDateString = maxDate.toISOString().split('T')[0];
+            document.getElementById('birthdate').setAttribute('max', maxDateString);
         });
     </script>
 

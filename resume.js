@@ -1,4 +1,3 @@
-
 const config = {
     apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
     authDomain: "resume-back-eefe0.firebaseapp.com",
@@ -7,7 +6,7 @@ const config = {
     storageBucket: "resume-back-eefe0.appspot.com",
     messagingSenderId: "717870089790",
     appId: "1:717870089790:web:44615d3f3c01222d51336f"
-  };
+};
 
 
 /*
@@ -67,13 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-async function submitResume() 
-{
+async function submitResume() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
     const location = document.getElementById('location').value;
-    const age = document.getElementById('age').value;
+    const birthdate = document.getElementById('birthdate').value;
     const description = document.getElementById('description').value;
 
     const genderRadios = document.querySelectorAll('input[name="gender"]');
@@ -117,20 +115,20 @@ async function submitResume()
     }
 
     firebase.initializeApp(config)
-    const firestore = firebase.firestore() 
+    const firestore = firebase.firestore()
     _ = await firestore.collection("resumes").add({
         "name": name,
         "email": email,
         "phone": phone,
         "location": location,
-        "age": age,
+        "birthdate": birthdate,
         "gender": gender,
         "area": area,
         "formation": formation,
         "description": description
     });
 
-    
+
 
     window.location.href = "index.html";
 }
