@@ -11,15 +11,48 @@ const config = {
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 
+// Seleciona o container da grade de cards
+const cardGrid = document.getElementById('card-grid');
 let curriculos = []
-firestore.collection("resumes").get().then((querySnapshot) => {
-    querySnapshot.docs.map(doc => curriculos.push(doc.data()))
-        // Para cada currículo no JSON, cria e adiciona um card na grade
-    curriculos.forEach(curriculo => {
-        const card = criarCard(curriculo);
-        cardGrid.appendChild(card);
-    });
-})
+
+
+async function fetchResumes() {
+    const usersRef = firestore.collection("users");
+    cardGrid.innerHTML = '';
+
+    try {
+        const querySnapshot = await usersRef.get();
+        const curriculos = []; // Array to hold all resumes
+
+        // Iterate through each user document
+        for (const userDoc of querySnapshot.docs) {
+            const resumesRef = usersRef.doc(userDoc.id).collection("resume");
+
+            const resumeSnapshot = await resumesRef.get();
+
+            resumeSnapshot.forEach((resumeDoc) => {
+                curriculos.push(resumeDoc.data());
+            });
+        }
+
+        // Display curriculos in your UI
+        curriculos.forEach(curriculo => {
+            const card = criarCard(curriculo);
+            cardGrid.appendChild(card);
+        });
+
+        console.log(curriculos); // Log the final array of resumes
+
+        // Return or use curriculos as needed
+        return curriculos;
+    } catch (error) {
+        console.error('Error fetching or processing resumes:', error);
+        return []; // Return empty array or handle error as needed
+    }
+}
+
+
+
 
 
 // Função para criar um card
@@ -80,9 +113,6 @@ function calcularIdade(birthdate) {
     return idade;
 }
 
-// Seleciona o container da grade de cards
-const cardGrid = document.getElementById('card-grid');
-
 
 function aplicarFiltros() {
     const idadeMin = document.getElementById('idade-min').value;
@@ -129,4 +159,4 @@ document.getElementById('filtrar').addEventListener('click', aplicarFiltros);
 document.getElementById('limpar').addEventListener('click', limparFiltros);
 
 // Carregar todos os currículos inicialmente
-aplicarFiltros();
+fetchResumes();

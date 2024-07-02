@@ -8,26 +8,8 @@ const config = {
     appId: "1:717870089790:web:44615d3f3c01222d51336f"
 };
 
-
-/*
-//exemplo de como adicionar um item a coleção. 
-!!!!!
-Cuidado, toda vez que esse trecho for executado um novo item será adicionado a coleção
-!!!!!
-
-firestore.collection("resumes").add({
-    "name": "Carlos Ferreira",
-    "email": "carlos.ferreira@example.com",
-    "phone": "(51) 91234-5678",
-    "location": "Porto Alegre",
-    "age": 30,
-    "gender": "Masculino",
-    "area": "Engenharia e Reconstrução",
-    "formation": "Ensino Superior Completo",
-    "description": "Engenheiro civil com foco em reconstrução após desastres."
-});
-*/
-
+firebase.initializeApp(config);
+const firestore = firebase.firestore();
 
 
 function toggleDropdown(id) {
@@ -50,6 +32,8 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
+    getUserInfo();
+
     // Prevent form submission on dropdown button click
     var dropdownButtons = document.querySelectorAll(".dropdown-button");
     dropdownButtons.forEach(function(button) {
@@ -65,15 +49,82 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+async function getUserInfo() {
+    const userID = localStorage.getItem('userID');
+    if (!userID) {
+        console.error('User ID not found in local storage.');
+        return;
+    }
+
+    try {
+        const resumeRef = firestore.collection('users').doc(userID).collection('resume').doc('main');
+        const resumeDoc = await resumeRef.get();
+
+        if (resumeDoc.exists) {
+            const resumeData = resumeDoc.data();
+            document.getElementById('name').value = resumeData.name || '';
+            document.getElementById('phone').value = resumeData.phone || '';
+            document.getElementById('location').value = resumeData.location || '';
+            document.getElementById('birthdate').value = resumeData.birthdate || '';
+            document.getElementById('description').value = resumeData.description || '';
+
+            const genderRadios = document.querySelectorAll('input[name="gender"]');
+            const areaRadios = document.querySelectorAll('input[name="area"]');
+            const formationRadios = document.querySelectorAll('input[name="formacao"]');
+
+            let gender = resumeData.gender;
+            genderRadios.forEach(radio => {
+                if (radio.value == gender) {
+                    radio.checked = true;
+                    document.getElementById(radio.getAttribute('data-target')).textContent = gender;
+                }
+            });
+
+            let area = resumeData.area;
+            areaRadios.forEach(radio => {
+                if (radio.value == area) {
+                    radio.checked = true;
+                    document.getElementById(radio.getAttribute('data-target')).textContent = area;
+                }
+            });
+
+            let formation = resumeData.formation;
+            formationRadios.forEach(radio => {
+                if (radio.value == formation) {
+                    radio.checked = true;
+                    document.getElementById(radio.getAttribute('data-target')).textContent = formation;
+                }
+            });
+        } else {
+            console.log('No resume data found for this user.');
+        }
+    } catch (error) {
+        console.error('Error fetching resume data: ', error);
+    }
+}
+
 
 async function submitResume() {
+    const userID = localStorage.getItem('userID');
+    if (!userID) {
+        console.error('User ID not found in local storage.');
+        return;
+    }
+
+    const userRef = firestore.collection('users').doc(userID);
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+        console.error('User not found.');
+        return;
+    }
+
+    const email = userDoc.data().email;
+
     const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
     const location = document.getElementById('location').value;
     const birthdate = document.getElementById('birthdate').value;
     const description = document.getElementById('description').value;
-
     const genderRadios = document.querySelectorAll('input[name="gender"]');
     const areaRadios = document.querySelectorAll('input[name="area"]');
     const formationRadios = document.querySelectorAll('input[name="formacao"]');
@@ -114,21 +165,24 @@ async function submitResume() {
         return;
     }
 
-    firebase.initializeApp(config)
-    const firestore = firebase.firestore()
-    _ = await firestore.collection("resumes").add({
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "location": location,
-        "birthdate": birthdate,
-        "gender": gender,
-        "area": area,
-        "formation": formation,
-        "description": description
-    });
+    try {
+        const resumeRef = firestore.collection("users").doc(userID).collection("resume").doc("main");
+        await resumeRef.set({
+            name: name,
+            email: email,
+            phone: phone,
+            location: location,
+            birthdate: birthdate,
+            gender: gender,
+            area: area,
+            formation: formation,
+            description: description
+        }, { merge: true });
 
-
-
-    window.location.href = "index.html";
+        window.location.href = "index.html";
+        localStorage.clear();
+    } catch (error) {
+        console.error('Error saving resume: ', error);
+        alert('Error saving resume.');
+    }
 }
