@@ -174,6 +174,7 @@ async function submitResume() {
             console.log('Error submitting resume. Please try again.');
         } else {
             console.log('Resume submitted successfully.');
+            window.location.href = 'index.html';
         }
     })
     .catch((error) => {
