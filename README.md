@@ -8,7 +8,7 @@
 - Pedron Henrique da Silva Rinerasky
 
 ##### Deploy
-https://elc1090.github.io/project3-2024a-alfredo-pedro/
+https://resume-back-zwhd.onrender.com
 
 
 #### Desenvolvimento
