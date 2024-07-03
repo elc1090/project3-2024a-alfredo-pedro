@@ -1,16 +1,4 @@
-const config = {
-    apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
-    authDomain: "resume-back-eefe0.firebaseapp.com",
-    databaseURL: "https://resume-back-eefe0-default-rtdb.firebaseio.com",
-    projectId: "resume-back-eefe0",
-    storageBucket: "resume-back-eefe0.appspot.com",
-    messagingSenderId: "717870089790",
-    appId: "1:717870089790:web:44615d3f3c01222d51336f"
-};
-
-firebase.initializeApp(config);
-const firestore = firebase.firestore();
-
+const apiPath = "https://resume-back-zwhd.onrender.com/api";
 
 function toggleDropdown(id) {
     for (const dropdown of document.querySelectorAll('.dropdown-content')) {
@@ -50,77 +38,73 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function getUserInfo() {
-    const userID = localStorage.getItem('userID');
-    if (!userID) {
-        console.error('User ID not found in local storage.');
-        return;
-    }
 
-    try {
-        const resumeRef = firestore.collection('users').doc(userID).collection('resume').doc('main');
-        const resumeDoc = await resumeRef.get();
-
-        if (resumeDoc.exists) {
-            const resumeData = resumeDoc.data();
-            document.getElementById('name').value = resumeData.name || '';
-            document.getElementById('phone').value = resumeData.phone || '';
-            document.getElementById('location').value = resumeData.location || '';
-            document.getElementById('birthdate').value = resumeData.birthdate || '';
-            document.getElementById('description').value = resumeData.description || '';
-
-            const genderRadios = document.querySelectorAll('input[name="gender"]');
-            const areaRadios = document.querySelectorAll('input[name="area"]');
-            const formationRadios = document.querySelectorAll('input[name="formacao"]');
-
-            let gender = resumeData.gender;
-            genderRadios.forEach(radio => {
-                if (radio.value == gender) {
-                    radio.checked = true;
-                    document.getElementById(radio.getAttribute('data-target')).textContent = gender;
-                }
-            });
-
-            let area = resumeData.area;
-            areaRadios.forEach(radio => {
-                if (radio.value == area) {
-                    radio.checked = true;
-                    document.getElementById(radio.getAttribute('data-target')).textContent = area;
-                }
-            });
-
-            let formation = resumeData.formation;
-            formationRadios.forEach(radio => {
-                if (radio.value == formation) {
-                    radio.checked = true;
-                    document.getElementById(radio.getAttribute('data-target')).textContent = formation;
-                }
-            });
-        } else {
-            console.log('No resume data found for this user.');
+    const resumeData = {};
+    
+    fetch(`${apiPath}/get-user-resume`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
-    } catch (error) {
-        console.error('Error fetching resume data: ', error);
-    }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('No resume found for this user');
+            return;
+        } 
+        else 
+        {
+            resumeData = data;
+        }
+    })
+    .catch((error) => {
+        console.error('Error fetching user info: ', error);
+        return;
+    });
+
+    document.getElementById('name').value = resumeData.name || '';
+    document.getElementById('email').value = resumeData.email || '';
+    document.getElementById('phone').value = resumeData.phone || '';
+    document.getElementById('location').value = resumeData.location || '';
+    document.getElementById('birthdate').value = resumeData.birthdate || '';
+    document.getElementById('description').value = resumeData.description || '';
+
+    const genderRadios = document.querySelectorAll('input[name="gender"]');
+    const areaRadios = document.querySelectorAll('input[name="area"]');
+    const formationRadios = document.querySelectorAll('input[name="formacao"]');
+
+    let gender = resumeData.gender;
+    genderRadios.forEach(radio => {
+        if (radio.value == gender) {
+            radio.checked = true;
+            document.getElementById(radio.getAttribute('data-target')).textContent = gender;
+        }
+    });
+
+    let area = resumeData.area;
+    areaRadios.forEach(radio => {
+        if (radio.value == area) {
+            radio.checked = true;
+            document.getElementById(radio.getAttribute('data-target')).textContent = area;
+        }
+    });
+
+    let formation = resumeData.formation;
+    formationRadios.forEach(radio => {
+        if (radio.value == formation) {
+            radio.checked = true;
+            document.getElementById(radio.getAttribute('data-target')).textContent = formation;
+        }
+    });
 }
 
 
 async function submitResume() {
-    const userID = localStorage.getItem('userID');
-    if (!userID) {
-        console.error('User ID not found in local storage.');
-        return;
-    }
-
-    const userRef = firestore.collection('users').doc(userID);
-    const userDoc = await userRef.get();
-    if (!userDoc.exists) {
-        console.error('User not found.');
-        return;
-    }
-
-    const email = userDoc.data().email;
 
     const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
     const location = document.getElementById('location').value;
     const birthdate = document.getElementById('birthdate').value;
@@ -165,9 +149,13 @@ async function submitResume() {
         return;
     }
 
-    try {
-        const resumeRef = firestore.collection("users").doc(userID).collection("resume").doc("main");
-        await resumeRef.set({
+    fetch(`${apiPath}/update-resume`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }, 
+        body: JSON.stringify({
             name: name,
             email: email,
             phone: phone,
@@ -177,12 +165,20 @@ async function submitResume() {
             area: area,
             formation: formation,
             description: description
-        }, { merge: true });
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error submitting resume: ', data.error);
+            console.log('Error submitting resume. Please try again.');
+        } else {
+            console.log('Resume submitted successfully.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error submitting resume: ', error);
+        console.log('Error submitting resume. Please try again.');
+    });
 
-        window.location.href = "index.html";
-        localStorage.clear();
-    } catch (error) {
-        console.error('Error saving resume: ', error);
-        alert('Error saving resume.');
-    }
 }

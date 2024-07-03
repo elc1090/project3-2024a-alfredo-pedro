@@ -1,15 +1,4 @@
-const config = {
-    apiKey: "AIzaSyCmFJM6xicl2D01jHmFXMQI_NisNJbnXqY",
-    authDomain: "resume-back-eefe0.firebaseapp.com",
-    databaseURL: "https://resume-back-eefe0-default-rtdb.firebaseio.com",
-    projectId: "resume-back-eefe0",
-    storageBucket: "resume-back-eefe0.appspot.com",
-    messagingSenderId: "717870089790",
-    appId: "1:717870089790:web:44615d3f3c01222d51336f"
-};
-
-firebase.initializeApp(config)
-const firestore = firebase.firestore()
+const apiPath = "https://resume-back-zwhd.onrender.com/api";
 
 // Seleciona o container da grade de cards
 const cardGrid = document.getElementById('card-grid');
@@ -17,42 +6,27 @@ let curriculos = []
 
 
 async function fetchResumes() {
-    const usersRef = firestore.collection("users");
     cardGrid.innerHTML = '';
 
-    try {
-        const querySnapshot = await usersRef.get();
-        const curriculos = []; // Array to hold all resumes
-
-        // Iterate through each user document
-        for (const userDoc of querySnapshot.docs) {
-            const resumesRef = usersRef.doc(userDoc.id).collection("resume");
-
-            const resumeSnapshot = await resumesRef.get();
-
-            resumeSnapshot.forEach((resumeDoc) => {
-                curriculos.push(resumeDoc.data());
-            });
+    fetch(`${apiPath}/get-public-resume`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
-
-        // Display curriculos in your UI
-        curriculos.forEach(curriculo => {
+    })
+    .then(response => response.json())
+    .then(data => {
+        curriculos = data;
+        data.forEach(curriculo => {
             const card = criarCard(curriculo);
             cardGrid.appendChild(card);
         });
-
-        console.log(curriculos); // Log the final array of resumes
-
-        // Return or use curriculos as needed
-        return curriculos;
-    } catch (error) {
-        console.error('Error fetching or processing resumes:', error);
-        return []; // Return empty array or handle error as needed
-    }
+    })
+    .catch((error) => {
+        console.error('Erro ao buscar currículos', error);
+    });
 }
-
-
-
 
 
 // Função para criar um card
