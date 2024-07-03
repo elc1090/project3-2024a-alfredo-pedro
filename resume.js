@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function getUserInfo() {
 
-    const resumeData = {};
+    let resumeData = {};
     
     fetch(`${apiPath}/get-user-resume`, {
         method: 'GET',
