@@ -80,21 +80,18 @@
     <div class="container">
         <div class="form-container">
             <div class="form-box">
-                <h2>Login</h2>
-                <form id="login-form">
-                    <input id="login-email" type="email" name="email" placeholder="Email" required>
-                    <input id="login-password" type="password" name="password" placeholder="Senha" required>
-                    <div>
-                        <button type="submit">Entrar</button>
-                        <button id="register">Crie sua conta</button>
-                    </div>
+                <h2>Crie sua Conta</h2>
+                <form id="new-account-form">
+                    <input id="new-account-email" type="email" name="email" placeholder="Email" required>
+                    <input id="new-account-password" type="password" name="password" placeholder="Senha" required minlength="6">
+                    <button type="submit">Criar Conta</button>
                 </form>
             </div>
         </div>
         <div id="login-alert" class="alert d-none" role="alert"></div>
     </div>
 
-    <script src="login.js"></script>
+    <script src="register.js"></script>
     <script>
         document.getElementById('bt_resume').addEventListener('click', function() {
             window.location.href = 'login.html'
@@ -102,10 +99,6 @@
 
         document.getElementById('bt_employer').addEventListener('click', function() {
             window.location.href = 'employer.html';
-        });
-
-        document.getElementById('register').addEventListener('click', function() {
-            window.location.href = 'register.html';
         });
     </script>
 </body>
