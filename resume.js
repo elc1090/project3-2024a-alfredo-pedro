@@ -40,29 +40,29 @@ document.addEventListener("DOMContentLoaded", function() {
 async function getUserInfo() {
 
     let resumeData = {};
-    
+
     fetch(`${apiPath}/get-user-resume`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            console.error('No resume found for this user');
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('No resume found for this user');
+                return;
+            } else {
+                resumeData = data;
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching user info: ', error);
             return;
-        } 
-        else 
-        {
-            resumeData = data;
-        }
-    })
-    .catch((error) => {
-        console.error('Error fetching user info: ', error);
-        return;
-    });
+        });
+
+    console.log(resumeData);
 
     document.getElementById('name').value = resumeData.name || '';
     document.getElementById('email').value = resumeData.email || '';
@@ -150,36 +150,36 @@ async function submitResume() {
     }
 
     fetch(`${apiPath}/update-resume`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }, 
-        body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone,
-            location: location,
-            birthdate: birthdate,
-            gender: gender,
-            area: area,
-            formation: formation,
-            description: description
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                location: location,
+                birthdate: birthdate,
+                gender: gender,
+                area: area,
+                formation: formation,
+                description: description
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            console.error('Error submitting resume: ', data.error);
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error submitting resume: ', data.error);
+                console.log('Error submitting resume. Please try again.');
+            } else {
+                console.log('Resume submitted successfully.');
+                window.location.href = 'index.html';
+            }
+        })
+        .catch((error) => {
+            console.error('Error submitting resume: ', error);
             console.log('Error submitting resume. Please try again.');
-        } else {
-            console.log('Resume submitted successfully.');
-            window.location.href = 'index.html';
-        }
-    })
-    .catch((error) => {
-        console.error('Error submitting resume: ', error);
-        console.log('Error submitting resume. Please try again.');
-    });
+        });
 
 }
