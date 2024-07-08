@@ -78,18 +78,16 @@
     </div>
 
     <div class="container">
-        <div class="form-container">
-            <div class="form-box">
-                <h2>Login</h2>
-                <form id="login-form">
-                    <input id="login-email" type="email" name="email" placeholder="Email" required>
-                    <input id="login-password" type="password" name="password" placeholder="Senha" required>
-                    <div>
-                        <button type="submit">Entrar</button>
-                        <button id="register">Crie sua conta</button>
-                    </div>
-                </form>
-            </div>
+        <div class="form-box">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input id="login-email" type="email" name="email" placeholder="Email" required>
+                <input id="login-password" type="password" name="password" placeholder="Senha" required>
+                <div>
+                    <button type="submit">Entrar</button>
+                    <button id="register-bt">Crie sua conta</button>
+                </div>
+            </form>
         </div>
         <div id="login-alert" class="alert d-none" role="alert"></div>
     </div>
@@ -104,7 +102,7 @@
             window.location.href = 'employer.html';
         });
 
-        document.getElementById('register').addEventListener('click', function() {
+        document.getElementById('register-bt').addEventListener('click', function() {
             window.location.href = 'register.html';
         });
     </script>

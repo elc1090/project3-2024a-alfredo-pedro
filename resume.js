@@ -37,30 +37,48 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 async function getUserInfo() {
 
     let resumeData = {};
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        console.error('No access token found');
+        return;
+    } else {
+        console.log(accessToken);
+    }
 
-    fetch(`${apiPath}/get-user-resume`, {
+    try {
+        const response = await fetch(`${apiPath}/get-user-resume`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('No resume found for this user');
-                return;
-            } else {
-                resumeData = data;
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching user info: ', error);
-            return;
         });
+
+        if (!response.ok) {
+            // Lidar com erros de resposta
+            if (response.status === 403) {
+                console.error('Access denied. Invalid or expired token.');
+            } else {
+                console.error('Error fetching user info:', response.statusText);
+            }
+            return;
+        }
+
+        const data = await response.json();
+        if (data.error) {
+            console.error('No resume found for this user');
+            return;
+        } else {
+            resumeData = data;
+        }
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+        return;
+    }
 
     console.log(resumeData);
 

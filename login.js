@@ -6,16 +6,24 @@ function IsAcessTokenValid() {
         return false;
     }
 
+    console.log(accessToken);
+
     const decodedToken = jwt_decode(accessToken);
     return decodedToken.exp > Date.now() / 1000;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    if (IsAcessTokenValid()) {
-        window.location.href = 'resume.html';
-        return;
-    }
+    var registerButton = document.getElementById('register-bt');
+    registerButton.addEventListener("click", function(event) {
+        event.preventDefault();
+    });
+
+
+    // if (IsAcessTokenValid()) {
+    //     window.location.href = 'resume.html';
+    //     return;
+    // }
 
     document.getElementById('login-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -35,21 +43,23 @@ async function login() {
     const password = document.getElementById('login-password').value;
 
     fetch(`${apiPath}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         })
-    })
         .then(response => response.json())
         .then(data => {
             if (data.error) {
-                showAlert(data.error, 'danger');
+                showAlert("Usuário ou Senha incorretos", 'danger');
             } else {
-                window.location.href = 'resume.html';
+                console.log(data);
+                localStorage.setItem('accessToken', data.userCredential.user.stsTokenManager.accessToken);
+                //window.location.href = 'resume.html';
             }
         })
         .catch((error) => {

@@ -63,14 +63,9 @@ header h1 {
     overflow: hidden;
 }
 
-.form-container{
-    align-items: center;
-    justify-content: center;
-}
-
-/* .form-box {
+.form-box {
     width: 75%;
     margin: auto;
     padding: 20px;
     font-size: 50px;
-} */
+}
