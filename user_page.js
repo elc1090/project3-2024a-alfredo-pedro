@@ -83,7 +83,6 @@ async function getUserInfo() {
         document.getElementById('age').textContent = age;
         document.getElementById('description').textContent = description;
         document.getElementById('location').textContent = location;
-        document.getElementById('birthdate').textContent = birthdate;
         document.getElementById('phone').textContent = phone;
         document.getElementById('email').textContent = email;
         document.getElementById('gender').textContent = gender;
@@ -98,6 +97,8 @@ async function getUserInfo() {
 }
 
 async function logout() {
+    const accessToken = getCookie('access_token');
+
     try {
         const response = await fetch(`${apiPath}/logout`, {
             method: 'POST',
