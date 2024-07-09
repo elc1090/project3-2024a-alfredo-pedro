@@ -37,11 +37,18 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
 
 async function getUserInfo() {
 
     let resumeData = {};
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = getCookie('access_token');
     if (!accessToken) {
         console.error('No access token found');
         return;
