@@ -1,3 +1,5 @@
+const apiPath = "https://resume-back-zwhd.onrender.com/api";
+
 document.addEventListener("DOMContentLoaded", function() {
     getUserInfo();
 
