@@ -3,12 +3,12 @@ const apiPath = "https://resume-back-zwhd.onrender.com/api";
 document.addEventListener("DOMContentLoaded", function() {
     getUserInfo();
 
-    Document.getElementById('edit-resume').addEventListener('click', function(event) {
+    document.getElementById('edit-resume').addEventListener('click', function(event) {
         event.preventDefault();
         window.location.href = 'resume.html';
     });
 
-    Document.getElementById('logout').addEventListener('click', function(event) {
+    document.getElementById('logout').addEventListener('click', function(event) {
         event.preventDefault();
         logout();
     });
@@ -77,22 +77,22 @@ async function getUserInfo() {
 
         let age = calcularIdade(birthdate);
         let firstName = name.split(' ')[0];
-        Document.getElementById('user-name').textContent = "Bem-vindo, " + firstName + "!";
+        document.getElementById('user-name').textContent = "Bem-vindo, " + firstName + "!";
 
-        Document.getElementById('name').textContent = name;
-        Document.getElementById('age').textContent = age;
-        Document.getElementById('description').textContent = description;
-        Document.getElementById('location').textContent = location;
-        Document.getElementById('birthdate').textContent = birthdate;
-        Document.getElementById('phone').textContent = phone;
-        Document.getElementById('email').textContent = email;
-        Document.getElementById('gender').textContent = gender;
-        Document.getElementById('area').textContent = area;
-        Document.getElementById('formation').textContent = formation;
+        document.getElementById('name').textContent = name;
+        document.getElementById('age').textContent = age;
+        document.getElementById('description').textContent = description;
+        document.getElementById('location').textContent = location;
+        document.getElementById('birthdate').textContent = birthdate;
+        document.getElementById('phone').textContent = phone;
+        document.getElementById('email').textContent = email;
+        document.getElementById('gender').textContent = gender;
+        document.getElementById('area').textContent = area;
+        document.getElementById('formation').textContent = formation;
     } else {
-        Document.getElementById('resume-title').textContent = "Você ainda não possui um currículo cadastrado."
-        Document.getElementById('edit-resume').textContent = "Criar currículo"
-        let cardDiv = Document.getElementById('resume-card');
+        document.getElementById('resume-title').textContent = "Você ainda não possui um currículo cadastrado."
+        document.getElementById('edit-resume').textContent = "Criar currículo"
+        let cardDiv = document.getElementById('resume-card');
         cardDiv.innerHTML = "";
     }
 }

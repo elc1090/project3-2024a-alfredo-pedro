@@ -12,6 +12,7 @@ header {
     min-height: 70px;
     border-bottom: #3c9a89 3px solid;
     text-align: center;
+    margin-bottom: 4em;
 }
 
 header h1 {
