@@ -91,6 +91,7 @@ async function getUserInfo() {
         document.getElementById('edit-resume').textContent = "Criar currículo"
         let cardDiv = document.getElementById('resume-card');
         cardDiv.innerHTML = "";
+        cardDiv.removeAttribute('class');
     }
 }
 

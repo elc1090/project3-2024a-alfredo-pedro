@@ -65,3 +65,8 @@
 #resume-card {
     width: 100%;
 }
+
+#usr-page-bt button{
+    width: 80%;
+    margin-bottom: 3px;
+}
