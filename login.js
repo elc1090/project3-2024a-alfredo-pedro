@@ -11,6 +11,7 @@ function checkLoginStatus() {
     const loggedIn = getCookie('logged_in');
     if (loggedIn) {
         console.log('User is logged in');
+        window.location.href = 'resume.html';
     } else {
         console.log('User is not logged in');
     }
@@ -24,9 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    if (checkLoginStatus()) {
-        window.location.href = 'resume.html';
-    }
+    checkLoginStatus()
 
     document.getElementById('login-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
