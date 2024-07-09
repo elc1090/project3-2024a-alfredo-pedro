@@ -24,7 +24,7 @@
     </header>
 
     <div id="header-bt">
-        <button type="button" id="bt_resume">Crie Seu Currículo</button>
+        <button type="button" id="bt_user">Página do Usuário</button>
         <button type="button" id="bt_employer">Busque Trabalhadores</button>
     </div>
 
@@ -54,7 +54,7 @@
 
                 <div id="buttons" class="text-align">
                     <div class="bt">
-                        <button type="button" id="bt_resume2" class="btn btn-secondary btn-lg">Crie Seu Currículo</button>
+                        <button type="button" id="bt_user2" class="btn btn-secondary btn-lg">Página do Usuário</button>
                     </div>
                     <div class="bt">
                         <button type="button" id="bt_employer2" class="btn btn-secondary btn-lg">Busque Trabalhadores</button>
@@ -69,16 +69,40 @@
     </div>
 
     <script>
-        document.getElementById('bt_resume').addEventListener('click', function() {
-            window.location.href = 'login.html'
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function checkLoginStatus() {
+            const loggedIn = getCookie('logged_in');
+            if (loggedIn) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        document.getElementById('bt_user').addEventListener('click', function() {
+            if (checkLoginStatus()) {
+                window.location.href = 'user_page.html';
+            } else {
+                window.location.href = 'login.html';
+            }
         });
 
         document.getElementById('bt_employer').addEventListener('click', function() {
             window.location.href = 'employer.html';
         });
 
-        document.getElementById('bt_resume2').addEventListener('click', function() {
-            window.location.href = 'login.html'
+        document.getElementById('bt_user2').addEventListener('click', function() {
+            if (checkLoginStatus()) {
+                window.location.href = 'user_page.html';
+            } else {
+                window.location.href = 'login.html';
+            }
         });
 
         document.getElementById('bt_employer2').addEventListener('click', function() {

@@ -11,7 +11,7 @@ function checkLoginStatus() {
     const loggedIn = getCookie('logged_in');
     if (loggedIn) {
         console.log('User is logged in');
-        window.location.href = 'resume.html';
+        window.location.href = 'user_page.html';
     } else {
         console.log('User is not logged in');
     }
@@ -61,7 +61,7 @@ async function login() {
             } else {
                 console.log(data);
                 localStorage.setItem('accessToken', data.userCredential.user.stsTokenManager.accessToken);
-                window.location.href = 'resume.html';
+                window.location.href = 'user_page.html';
             }
         })
         .catch((error) => {

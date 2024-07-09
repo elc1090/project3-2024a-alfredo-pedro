@@ -61,3 +61,7 @@
 .card button:hover {
     background-color: #0056b3;
 }
+
+#resume-card {
+    width: 100%;
+}
