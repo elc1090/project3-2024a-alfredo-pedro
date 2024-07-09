@@ -1,15 +1,19 @@
 const apiPath = "https://resume-back-zwhd.onrender.com/api";
 
-function IsAcessTokenValid() {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-        return false;
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+function checkLoginStatus() {
+    const loggedIn = getCookie('logged_in');
+    if (loggedIn) {
+        console.log('User is logged in');
+    } else {
+        console.log('User is not logged in');
     }
-
-    console.log(accessToken);
-
-    const decodedToken = jwt_decode(accessToken);
-    return decodedToken.exp > Date.now() / 1000;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -20,10 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    // if (IsAcessTokenValid()) {
-    //     window.location.href = 'resume.html';
-    //     return;
-    // }
+    if (checkLoginStatus()) {
+        window.location.href = 'resume.html';
+    }
 
     document.getElementById('login-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -59,7 +62,7 @@ async function login() {
             } else {
                 console.log(data);
                 localStorage.setItem('accessToken', data.userCredential.user.stsTokenManager.accessToken);
-                //window.location.href = 'resume.html';
+                window.location.href = 'resume.html';
             }
         })
         .catch((error) => {
