@@ -31,6 +31,7 @@ async function getUserInfo() {
     }
 
     let resumeData = {};
+    let fetched = false;
 
     try {
         const response = await fetch(`${apiPath}/get-user-resume`, {
@@ -55,12 +56,13 @@ async function getUserInfo() {
             console.log('No resume found for this user');
         } else {
             resumeData = data;
+            fetched = true;
         }
     } catch (error) {
         console.log('Error fetching user info:', error);
     }
 
-    if (resumeData != {}) {
+    if (fetched) {
         const name = resumeData.name;
         const email = resumeData.email;
         const phone = resumeData.phone;
