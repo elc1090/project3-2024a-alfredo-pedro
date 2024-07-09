@@ -28,8 +28,6 @@ async function getUserInfo() {
     if (!accessToken) {
         console.error('No access token found');
         return;
-    } else {
-        console.log(accessToken);
     }
 
     let resumeData = {};
@@ -46,11 +44,10 @@ async function getUserInfo() {
         if (!response.ok) {
             // Lidar com erros de resposta
             if (response.status === 403) {
-                console.error('Access denied. Invalid or expired token.');
+                console.log('Access denied. Invalid or expired token.');
             } else {
-                console.error('Error fetching user info:', response.statusText);
+                console.log('Error fetching user info:', response.statusText);
             }
-            return;
         }
 
         const data = await response.json();
@@ -60,8 +57,7 @@ async function getUserInfo() {
             resumeData = data;
         }
     } catch (error) {
-        console.error('Error fetching user info:', error);
-        return;
+        console.log('Error fetching user info:', error);
     }
 
     if (resumeData) {

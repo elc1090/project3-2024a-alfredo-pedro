@@ -59,8 +59,6 @@ async function login() {
             if (data.error) {
                 showAlert("Usuário ou Senha incorretos", 'danger');
             } else {
-                console.log(data);
-                localStorage.setItem('accessToken', data.userCredential.user.stsTokenManager.accessToken);
                 window.location.href = 'user_page.html';
             }
         })

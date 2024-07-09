@@ -52,8 +52,6 @@ async function getUserInfo() {
     if (!accessToken) {
         console.error('No access token found');
         return;
-    } else {
-        console.log(accessToken);
     }
 
     try {
