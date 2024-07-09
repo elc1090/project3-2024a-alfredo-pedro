@@ -60,7 +60,7 @@ async function getUserInfo() {
         console.log('Error fetching user info:', error);
     }
 
-    if (resumeData) {
+    if (resumeData != {}) {
         const name = resumeData.name;
         const email = resumeData.email;
         const phone = resumeData.phone;
