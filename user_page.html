@@ -14,13 +14,17 @@
 <body>
 
     <header>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
+        <div>
+            <div class="header-container">
+                <div id="home-link-container">
                     <a href="index.html" id="home-link">
-                        <h1 id="home-link">Mãos Que Ajudam</h1>
+                        <h1>Mãos Que Ajudam</h1>
                     </a>
                 </div>
+            </div>
+            <div id="nav-links">
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="register.html" class="nav-link">Registrar</a>
             </div>
         </div>
     </header>
@@ -74,7 +78,29 @@
 
 
     <script src="user_page.js"></script>
+    <script src="user_page.js"></script>
     <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function checkLoginStatus() {
+            const loggedIn = getCookie('logged_in');
+            if (loggedIn) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkLoginStatus()) {
+                document.getElementById('nav-links').innerHTML = '<a href="#" onclick="logout()" class="nav-link">Logout</a>';
+            }
+        });
         document.getElementById('bt_resume').addEventListener('click', function() {
             window.location.href = 'user_page.html'
         });

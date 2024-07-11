@@ -8,7 +8,8 @@ body {
 header {
     background: #50b3a2;
     color: #ffffff;
-    padding: 30px 0;
+    padding-top: 30px;
+    padding-bottom: 10px;
     min-height: 70px;
     border-bottom: #3c9a89 3px solid;
     text-align: center;
@@ -21,6 +22,21 @@ header h1 {
     /* Cursor mudado para indicar que é clicável */
 }
 
+.header-container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+#home-link-container {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+}
+
 #home-link {
     text-decoration: none;
     /* Remove sublinhado padrão do link */
@@ -28,6 +44,20 @@ header h1 {
     /* Herda a cor do texto do header */
     display: block;
     /* Faz o link ocupar toda a área do h1 */
+}
+
+#nav-links {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    padding-right: 2em;
+    /* Alinha os itens à direita */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
 }
 
 #header-bt {
@@ -55,6 +85,8 @@ header h1 {
     width: 80%;
     margin: auto;
     overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 .content-wrapper {
