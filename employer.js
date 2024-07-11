@@ -8,6 +8,7 @@ let curriculos = []
 async function fetchResumes() {
 
     const spinnerDiv = document.getElementById('spinner');
+    spinnerDiv.hidden = false;
 
     fetch(`${apiPath}/get-public-resume`, {
             method: 'GET',
@@ -20,7 +21,7 @@ async function fetchResumes() {
         .then(data => {
             curriculos = data;
             cardGrid.innerHTML = '';
-            spinnerDiv.innerHTML = '';
+            spinnerDiv.hidden = true;
             data.forEach(curriculo => {
                 const card = criarCard(curriculo);
                 cardGrid.appendChild(card);

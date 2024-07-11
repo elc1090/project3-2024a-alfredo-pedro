@@ -10,16 +10,6 @@ function toggleDropdown(id) {
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
-
-// document.querySelectorAll('input[type="radio"]').forEach(radio => {
-//     radio.addEventListener('change', function() {
-//         const selectedOptionId = this.getAttribute('data-target');
-//         const selectedOption = document.getElementById(selectedOptionId);
-//         selectedOption.textContent = this.value;
-//         toggleDropdown(this.closest('.dropdown-content').id);
-//     });
-// });
-
 document.querySelectorAll('.dropdown-option').forEach(option => {
     option.addEventListener('click', function() {
         const selectedOptionId = this.getAttribute('data-target');
@@ -35,9 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const contentDiv = document.getElementById('form-container');
 
     contentDiv.hidden = true;
+    spinnerDiv.hidden = false;
     getUserInfo();
     contentDiv.hidden = false;
-    spinnerDiv.innerHTML = '';
+    spinnerDiv.hidden = true;
 
     // Prevent form submission on dropdown button click
     var dropdownButtons = document.querySelectorAll(".dropdown-button");
