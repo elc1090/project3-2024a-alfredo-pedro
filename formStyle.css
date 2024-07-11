@@ -43,3 +43,21 @@
     margin-left: 1px;
     margin-right: 10px;
 }
+
+
+/* Dropdown Options */
+
+.dropdown-option {
+    display: block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.dropdown-option:hover {
+    background-color: #9d9a9a;
+    /* Darker blue on hover */
+}

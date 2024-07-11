@@ -6,26 +6,29 @@ let curriculos = []
 
 
 async function fetchResumes() {
-    cardGrid.innerHTML = '';
+
+    const spinnerDiv = document.getElementById('spinner');
 
     fetch(`${apiPath}/get-public-resume`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        curriculos = data;
-        data.forEach(curriculo => {
-            const card = criarCard(curriculo);
-            cardGrid.appendChild(card);
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            curriculos = data;
+            cardGrid.innerHTML = '';
+            spinnerDiv.innerHTML = '';
+            data.forEach(curriculo => {
+                const card = criarCard(curriculo);
+                cardGrid.appendChild(card);
+            });
+        })
+        .catch((error) => {
+            console.error('Erro ao buscar currículos', error);
         });
-    })
-    .catch((error) => {
-        console.error('Erro ao buscar currículos', error);
-    });
 }
 
 
@@ -100,9 +103,12 @@ function aplicarFiltros() {
     cardGrid.innerHTML = '';
 
     const curriculosFiltrados = curriculos.filter(curriculo => {
+
+        let age = calcularIdade(curriculo.birthdate);
+
         return (
-            (!idadeMin || curriculo.age >= idadeMin) &&
-            (!idadeMax || curriculo.age <= idadeMax) &&
+            (!idadeMin || age >= idadeMin) &&
+            (!idadeMax || age <= idadeMax) &&
             (!generoFiltro || curriculo.gender == generoFiltro) &&
             (!localizacaoFiltro || curriculo.location.toLowerCase().includes(localizacaoFiltro.toLowerCase())) &&
             (!areaFiltro || curriculo.area == areaFiltro) &&
@@ -110,12 +116,19 @@ function aplicarFiltros() {
         );
     });
 
+    if (curriculosFiltrados.length === 0) {
+        const noResultsDiv = document.getElementById('no-results');
+        noResultsDiv.innerHTML = '';
+        const nenhumResultado = document.createElement('h2');
+        nenhumResultado.textContent = 'Nenhum resultado encontrado';
+        noResultsDiv.appendChild(nenhumResultado);
+    }
+
     curriculosFiltrados.forEach(curriculo => {
         const card = criarCard(curriculo);
         cardGrid.appendChild(card);
     });
 }
-
 
 function limparFiltros() {
     document.getElementById('idade-min').value = '';
@@ -124,6 +137,9 @@ function limparFiltros() {
     document.getElementById('localizacao').value = '';
     document.getElementById('area').value = '';
     document.getElementById('formacao').value = '';
+
+    const noResultsDiv = document.getElementById('no-results');
+    noResultsDiv.innerHTML = '';
 
     // Aplicar os filtros novamente para mostrar todos os currículos
     aplicarFiltros();

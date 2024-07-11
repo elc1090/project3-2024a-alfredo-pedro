@@ -100,3 +100,24 @@ img {
 .bt {
     padding: 0.5em;
 }
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Você pode ajustar a altura conforme necessário */
+}
+
+.spinner-border {
+    width: 6rem;
+    height: 6rem;
+}
+
+#spinner {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    margin-top: 6em;
+}

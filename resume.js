@@ -10,17 +10,34 @@ function toggleDropdown(id) {
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
-document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', function() {
+
+// document.querySelectorAll('input[type="radio"]').forEach(radio => {
+//     radio.addEventListener('change', function() {
+//         const selectedOptionId = this.getAttribute('data-target');
+//         const selectedOption = document.getElementById(selectedOptionId);
+//         selectedOption.textContent = this.value;
+//         toggleDropdown(this.closest('.dropdown-content').id);
+//     });
+// });
+
+document.querySelectorAll('.dropdown-option').forEach(option => {
+    option.addEventListener('click', function() {
         const selectedOptionId = this.getAttribute('data-target');
         const selectedOption = document.getElementById(selectedOptionId);
-        selectedOption.textContent = this.value;
-        toggleDropdown(this.closest('.dropdown-content').id);
+        selectedOption.textContent = this.getAttribute('data-value');
+        const dropdownContent = this.closest('.dropdown-content');
+        dropdownContent.style.display = 'none';
     });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
+    const spinnerDiv = document.getElementById('spinner');
+    const contentDiv = document.getElementById('form-container');
+
+    contentDiv.hidden = true;
     getUserInfo();
+    contentDiv.hidden = false;
+    spinnerDiv.innerHTML = '';
 
     // Prevent form submission on dropdown button click
     var dropdownButtons = document.querySelectorAll(".dropdown-button");

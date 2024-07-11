@@ -24,6 +24,12 @@ function getCookie(name) {
 }
 
 async function getUserInfo() {
+
+    const contentDiv = document.getElementById('usr-page-content');
+    const spinnerDiv = document.getElementById('spinner');
+
+    contentDiv.hidden = true;
+
     const accessToken = getCookie('access_token');
     if (!accessToken) {
         console.error('No access token found');
@@ -93,6 +99,9 @@ async function getUserInfo() {
         cardDiv.innerHTML = "";
         cardDiv.removeAttribute('class');
     }
+
+    contentDiv.hidden = false;
+    spinnerDiv.innerHTML = '';
 }
 
 async function logout() {

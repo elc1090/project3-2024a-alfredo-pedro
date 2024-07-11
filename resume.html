@@ -31,7 +31,13 @@
         <button type="button" id="bt_employer">Busque Trabalhadores</button>
     </div>
 
-    <div class="container">
+    <div id="spinner">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+
+    <div id="form-container" class="container">
         <div class="row">
             <h2>Crie Seu Currículo</h2>
             <form id="resumeForm">
@@ -52,18 +58,9 @@
                     <div>
                         <button class="dropdown-button" onclick="toggleDropdown('gender-dropdown')"><span id="selected-gender"></span></button>
                         <div id="gender-dropdown" class="dropdown-content">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="gender" value="Masculino" data-target="selected-gender">
-                                <label class="form-check-label" for="masculine">Masculino</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="gender" value="Feminino" data-target="selected-gender">
-                                <label class="form-check-label" for="feminine">Feminino</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="gender" value="Outro" data-target="selected-gender">
-                                <label class="form-check-label" for="other">Outro</label>
-                            </div>
+                            <div class="dropdown-option" data-value="Masculino" data-target="selected-gender">Masculino</div>
+                            <div class="dropdown-option" data-value="Feminino" data-target="selected-gender">Feminino</div>
+                            <div class="dropdown-option" data-value="Outro" data-target="selected-gender">Outro</div>
                         </div>
                     </div>
                 </div>
@@ -80,34 +77,13 @@
                     <div>
                         <button class="dropdown-button" onclick="toggleDropdown('area-dropdown')"><span id="selected-area"></span></button>
                         <div id="area-dropdown" class="dropdown-content">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Área da Saúde" data-target="selected-area">
-                                <label class="form-check-label" for="saude">Área da Saúde</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Logística" data-target="selected-area">
-                                <label class="form-check-label" for="logistica">Logística</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Culinária" data-target="selected-area">
-                                <label class="form-check-label" for="culinaria">Culinária</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Trabalho Manual" data-target="selected-area">
-                                <label class="form-check-label" for="manual">Trabalho Manual</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Engenharia e Reconstrução" data-target="selected-area">
-                                <label class="form-check-label" for="engenharia e reconstrucao">Engenharia e Reconstrução</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Suporte Social" data-target="selected-area">
-                                <label class="form-check-label" for="suporte social">Suporte Social</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="area" id="area" value="Segurança e Proteção" data-target="selected-area">
-                                <label class="form-check-label" for="segurança e protecao">Segurança e Proteção</label>
-                            </div>
+                            <div class="dropdown-option" data-value="Área da Saúde" data-target="selected-area">Área da Saúde</div>
+                            <div class="dropdown-option" data-value="Logística" data-target="selected-area">Logística</div>
+                            <div class="dropdown-option" data-value="Culinária" data-target="selected-area">Culinária</div>
+                            <div class="dropdown-option" data-value="Trabalho Manual" data-target="selected-area">Trabalho Manual</div>
+                            <div class="dropdown-option" data-value="Engenharia e Reconstrução" data-target="selected-area">Engenharia e Reconstrução</div>
+                            <div class="dropdown-option" data-value="Suporte Social" data-target="selected-area">Suporte Social</div>
+                            <div class="dropdown-option" data-value="Segurança e Proteção" data-target="selected-area">Segurança e Proteção</div>
                         </div>
                     </div>
                 </div>
@@ -116,22 +92,10 @@
                     <div>
                         <button class="dropdown-button" onclick="toggleDropdown('formacao-dropdown')"><span id="selected-formacao"></span></button>
                         <div id="formacao-dropdown" class="dropdown-content">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Superior Completo" data-target="selected-formacao">
-                                <label class="form-check-label" for="manual">Ensino Superior Completo</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Superior Incompleto" data-target="selected-formacao">
-                                <label class="form-check-label" for="saude">Ensino Superior Incompleto</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Médio Completo" data-target="selected-formacao">
-                                <label class="form-check-label" for="logistica">Ensino Médio Completo</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formacao" id="formacao" value="Ensino Médio Incompleto" data-target="selected-formacao">
-                                <label class="form-check-label" for="culinaria">Ensino Médio Incompleto</label>
-                            </div>
+                            <div class="dropdown-option" data-value="Ensino Superior Completo" data-target="selected-formacao">Ensino Superior Completo</div>
+                            <div class="dropdown-option" data-value="Ensino Superior Incompleto" data-target="selected-formacao">Ensino Superior Incompleto</div>
+                            <div class="dropdown-option" data-value="Ensino Médio Completo" data-target="selected-formacao">Ensino Médio Completo</div>
+                            <div class="dropdown-option" data-value="Ensino Médio Incompleto" data-target="selected-formacao">Ensino Médio Incompleto</div>
                         </div>
                     </div>
                 </div>
