@@ -70,7 +70,6 @@
         </div>
     </div>
 
-    <script src="user_page.js"></script>
     <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -85,6 +84,35 @@
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        async function logout() {
+            const accessToken = getCookie('access_token');
+
+            try {
+                const response = await fetch(`${apiPath}/logout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    console.error('Error logging out:', response.statusText);
+                    return;
+                }
+
+                const data = await response.json();
+                if (data.error) {
+                    console.error('Error logging out:', data.error);
+                } else {
+                    console.log('User logged out');
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                console.error('Error logging out:', error);
             }
         }
 
