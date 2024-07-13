@@ -118,34 +118,9 @@ async function getUserInfo() {
     document.getElementById('location').value = resumeData.location || '';
     document.getElementById('birthdate').value = resumeData.birthdate || '';
     document.getElementById('description').value = resumeData.description || '';
-
-    const genderRadios = document.querySelectorAll('input[name="gender"]');
-    const areaRadios = document.querySelectorAll('input[name="area"]');
-    const formationRadios = document.querySelectorAll('input[name="formacao"]');
-
-    let gender = resumeData.gender;
-    genderRadios.forEach(radio => {
-        if (radio.value == gender) {
-            radio.checked = true;
-            document.getElementById(radio.getAttribute('data-target')).textContent = gender;
-        }
-    });
-
-    let area = resumeData.area;
-    areaRadios.forEach(radio => {
-        if (radio.value == area) {
-            radio.checked = true;
-            document.getElementById(radio.getAttribute('data-target')).textContent = area;
-        }
-    });
-
-    let formation = resumeData.formation;
-    formationRadios.forEach(radio => {
-        if (radio.value == formation) {
-            radio.checked = true;
-            document.getElementById(radio.getAttribute('data-target')).textContent = formation;
-        }
-    });
+    document.getElementById('selected-gender').textContent = resumeData.gender || '';
+    document.getElementById('selected-area').textContent = resumeData.area || '';
+    document.getElementById('selected-formacao').textContent = resumeData.formation || '';
 }
 
 
