@@ -1,14 +1,7 @@
 const apiPath = "https://resume-back-zwhd.onrender.com/api";
 
 document.addEventListener("DOMContentLoaded", function() {
-    const contentDiv = document.getElementById('usr-page-content');
-    const spinnerDiv = document.getElementById('spinner');
-
-    contentDiv.hidden = true;
-    spinnerDiv.hidden = false;
     getUserInfo();
-    contentDiv.hidden = false;
-    spinnerDiv.hidden = true;
 
     document.getElementById('edit-resume').addEventListener('click', function(event) {
         event.preventDefault();
@@ -31,6 +24,14 @@ function getCookie(name) {
 }
 
 async function getUserInfo() {
+
+    const contentDiv = document.getElementById('usr-page-content');
+    const spinnerDiv = document.getElementById('spinner');
+
+    contentDiv.hidden = true;
+    spinnerDiv.hidden = false;
+
+
     const accessToken = getCookie('access_token');
     if (!accessToken) {
         console.error('No access token found');
@@ -100,6 +101,9 @@ async function getUserInfo() {
         cardDiv.innerHTML = "";
         cardDiv.removeAttribute('class');
     }
+
+    contentDiv.hidden = false;
+    spinnerDiv.hidden = true;
 }
 
 async function logout() {
