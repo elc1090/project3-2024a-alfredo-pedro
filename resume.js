@@ -43,6 +43,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         submitResume();
     });
+
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('input', function(event) {
+        let input = event.target.value;
+
+        // Remove all non-numeric characters
+        input = input.replace(/\D/g, '');
+
+        // Add parentheses and hyphen based on input length
+        if (input.length > 2) {
+            input = `(${input.slice(0, 2)}) ${input.slice(2, 7)}` + (input.length > 6 ? `${input.slice(7, 11)}` : '');
+        }
+
+        // Set the formatted value back to the input field
+        event.target.value = input;
+    });
 });
 
 function getCookie(name) {
@@ -140,41 +157,20 @@ async function submitResume() {
     const location = document.getElementById('location').value;
     const birthdate = document.getElementById('birthdate').value;
     const description = document.getElementById('description').value;
-    const genderRadios = document.querySelectorAll('input[name="gender"]');
-    const areaRadios = document.querySelectorAll('input[name="area"]');
-    const formationRadios = document.querySelectorAll('input[name="formacao"]');
 
-    let gender = "";
-    genderRadios.forEach(radio => {
-        if (radio.checked) {
-            gender = radio.value;
-        }
-    });
-
+    const gender = document.getElementById('selected-gender').textContent.trim();
     if (!gender) {
         alert('Please select a gender.');
         return;
     }
 
-    let area = "";
-    areaRadios.forEach(radio => {
-        if (radio.checked) {
-            area = radio.value;
-        }
-    });
-
+    const area = document.getElementById('selected-area').textContent.trim();
     if (!area) {
         alert('Please select an area.');
         return;
     }
 
-    let formation = "";
-    formationRadios.forEach(radio => {
-        if (radio.checked) {
-            formation = radio.value;
-        }
-    });
-
+    const formation = document.getElementById('selected-formacao').textContent.trim();
     if (!formation) {
         alert('Please select a formation.');
         return;
