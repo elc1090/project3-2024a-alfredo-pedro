@@ -77,30 +77,6 @@
 
     <script src="user_page.js"></script>
     <script>
-        function generatePDF(html) {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF();
-            pdf.html(html, {
-                callback: function (pdf) {
-                    pdf.save('Currículo.pdf');
-                },
-                x: 10,
-                y: 10
-            });
-        }
-
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
-        function checkLoginStatus() {
-            const loggedIn = getCookie('logged_in');
-            return !!loggedIn;
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             if (checkLoginStatus()) {
                 document.getElementById('nav-links').innerHTML = '<a href="#" onclick="logout()" class="nav-link">Logout</a>';
@@ -117,9 +93,29 @@
 
         document.getElementById('generate-pdf').addEventListener('click', function(event) {
             event.preventDefault();
-            const html = document.getElementById('resume-card');
+            const html = document.getElementById('resume-card').innerHTML;
             generatePDF(html);
         });
+
+        function generatePDF(html) {
+            const doc = new jsPDF();
+            doc.fromHTML(html, 10, 10, { 
+                'width': 180 
+            });
+            doc.save('Currículo.pdf');
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function checkLoginStatus() {
+            const loggedIn = getCookie('logged_in');
+            return !!loggedIn;
+        }
     </script>
 </body>
 
