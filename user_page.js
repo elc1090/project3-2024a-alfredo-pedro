@@ -12,44 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         logout();
     });
-
-    document.getElementById('generate-pdf').addEventListener('click', function(event) {
-        event.preventDefault();
-        const html = document.getElementById('resume-card').innerHTML;
-        generatePDF(html);
-    });
-
 });
-
-function generatePDF(html)
-{
-    var pdf = new jsPDF('p', 'pt', 'letter');
-    source = html;
-    specialElementHandlers = {
-        '#bypassme': function(element, renderer){
-            return true
-        }
-    };
-    margins = {
-        top: 50,
-        left: 60,
-        width: 545
-    };
-    pdf.fromHTML(
-        source,
-        margins.left,
-        margins.top,
-        {
-            'width': margins.width,
-            'elementHandlers': specialElementHandlers
-        },
-        function (dispose) {
-            pdf.save('Currículo.pdf');
-        },
-        margins
-    );
-
-}
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
