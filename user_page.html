@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
     <header>
         <div>
             <div class="header-container">
@@ -76,40 +75,18 @@
         </div>
     </div>
 
-
-
-
     <script src="user_page.js"></script>
     <script>
-
-        function generatePDF(html)
-        {
-            var pdf = new jsPDF('p', 'pt', 'letter');
-            source = html;
-            specialElementHandlers = {
-                '#bypassme': function(element, renderer){
-                    return true
-                }
-            };
-            margins = {
-                top: 50,
-                left: 60,
-                width: 545
-            };
-            pdf.fromHTML(
-                source,
-                margins.left,
-                margins.top,
-                {
-                    'width': margins.width,
-                    'elementHandlers': specialElementHandlers
-                },
-                function (dispose) {
+        function generatePDF(html) {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            pdf.html(html, {
+                callback: function (pdf) {
                     pdf.save('Currículo.pdf');
                 },
-                margins
-            );
-
+                x: 10,
+                y: 10
+            });
         }
 
         function getCookie(name) {
@@ -121,11 +98,7 @@
 
         function checkLoginStatus() {
             const loggedIn = getCookie('logged_in');
-            if (loggedIn) {
-                return true;
-            } else {
-                return false;
-            }
+            return !!loggedIn;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -133,8 +106,9 @@
                 document.getElementById('nav-links').innerHTML = '<a href="#" onclick="logout()" class="nav-link">Logout</a>';
             }
         });
+
         document.getElementById('bt_resume').addEventListener('click', function() {
-            window.location.href = 'user_page.html'
+            window.location.href = 'user_page.html';
         });
 
         document.getElementById('bt_employer').addEventListener('click', function() {
@@ -142,12 +116,11 @@
         });
 
         document.getElementById('generate-pdf').addEventListener('click', function(event) {
-        event.preventDefault();
-        const html = document.getElementById('resume-card').innerHTML;
-        generatePDF(html);
-    });
+            event.preventDefault();
+            const html = document.getElementById('resume-card');
+            generatePDF(html);
+        });
     </script>
-
 </body>
 
 </html>
