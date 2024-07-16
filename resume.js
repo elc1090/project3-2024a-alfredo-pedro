@@ -121,6 +121,7 @@ async function getUserInfo() {
     document.getElementById('selected-gender').textContent = resumeData.gender || '';
     document.getElementById('selected-area').textContent = resumeData.area || '';
     document.getElementById('selected-formacao').textContent = resumeData.formation || '';
+    document.getElementById('flexSwitchCheckDefault').checked = resumeData.public || false;
 }
 
 
@@ -132,6 +133,7 @@ async function submitResume() {
     const location = document.getElementById('location').value;
     const birthdate = document.getElementById('birthdate').value;
     const description = document.getElementById('description').value;
+    const visibility = document.getElementById('flexSwitchCheckDefault').checked;
 
     const gender = document.getElementById('selected-gender').textContent.trim();
     if (!gender) {
@@ -166,7 +168,8 @@ async function submitResume() {
                 gender: gender,
                 area: area,
                 formation: formation,
-                description: description
+                description: description,
+                public: visibility
             })
         })
         .then(response => response.json())

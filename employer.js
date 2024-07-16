@@ -23,8 +23,10 @@ async function fetchResumes() {
             cardGrid.innerHTML = '';
             spinnerDiv.hidden = true;
             data.forEach(curriculo => {
-                const card = criarCard(curriculo);
-                cardGrid.appendChild(card);
+                if (curriculo.public === true) {
+                    const card = criarCard(curriculo);
+                    cardGrid.appendChild(card);
+                }
             });
         })
         .catch((error) => {
