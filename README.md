@@ -10,11 +10,12 @@
 ##### Deploy
 https://resume-back-zwhd.onrender.com
 
+#### Backend
+https://github.com/GalileuGalilei/resume-back
 
 #### Desenvolvimento
 
 Foi desenvolvida uma página estática com o objetivo de simplificar o preenchimento dos dados de um currículo fictício, especialmente voltada para pessoas simples que precisam de uma interface intuitiva e de fácil utilização. As informações fornecidas são armazenadas de forma segura no banco de dados do Firestore. Além disso, foi criada uma página adicional que possibilita a pesquisa e recuperação dos currículos armazenados, facilitando a localização de mão de obra em situações de desastres. 
-
 
 #### Tecnologias
 
@@ -23,6 +24,8 @@ Foi desenvolvida uma página estática com o objetivo de simplificar o preenchim
 - JavaScript
 - Bootstrap
 - Firebase
+- Render
+- PDFjs
 
 #### Ambiente de desenvolvimento
 
