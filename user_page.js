@@ -73,6 +73,7 @@ async function getUserInfo() {
         const area = resumeData.area;
         const formation = resumeData.formation;
         const description = resumeData.description;
+        const public = resumeData.public;
 
         let age = calcularIdade(birthdate);
         let firstName = name.split(' ')[0];
@@ -87,6 +88,7 @@ async function getUserInfo() {
         document.getElementById('gender').textContent = gender;
         document.getElementById('area').textContent = area;
         document.getElementById('formation').textContent = formation;
+        document.getElementById('visibility').textContent = public ? "Sim" : "Não";
     } else {
         document.getElementById('resume-title').textContent = "Você ainda não possui um currículo cadastrado."
         document.getElementById('edit-resume').textContent = "Criar currículo"
