@@ -126,6 +126,8 @@
 
         function generatePDF(html) {
             const doc = new jsPDF();
+
+            html = html.replace(/<div class="row mb-3">\s*<div class="col-sm-4"><strong>Visibilidade:<\/strong><\/div>\s*<div class="col-sm-8" id="visibility">.*<\/div>\s*<\/div>/, '');
             doc.fromHTML(html, 10, 10, {
                 'width': 180
             });
