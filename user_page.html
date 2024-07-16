@@ -47,54 +47,53 @@
                 <h2 id="resume-title">Seu Currículo</h2>
                 <div id="usr-page-bt">
                     <button id="edit-resume" type="button" class="btn btn-info mr-2">Editar Currículo</button>
-                    <button id="logout" type="button" class="btn btn-danger">Sair</button>
                     <button id="generate-pdf" type="button" class="btn btn-primary">Gerar PDF</button>
                 </div>
             </div>
             <div class="card" id="resume-card">
                 <div class="container mt-5">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="card-title mb-0">Currículo</h3>
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title mb-0">Currículo</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Nome:</strong></div>
+                            <div class="col-sm-8" id="name"></div>
                         </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Nome:</strong></div>
-                                <div class="col-sm-8" id="name"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Idade:</strong></div>
-                                <div class="col-sm-8" id="age"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Área de Atuação:</strong></div>
-                                <div class="col-sm-8" id="area"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Gênero:</strong></div>
-                                <div class="col-sm-8" id="gender"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Formação:</strong></div>
-                                <div class="col-sm-8" id="formation"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Localização:</strong></div>
-                                <div class="col-sm-8" id="location"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Descrição:</strong></div>
-                                <div class="col-sm-8" id="description"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Email:</strong></div>
-                                <div class="col-sm-8" id="email"></div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-4"><strong>Telefone:</strong></div>
-                                <div class="col-sm-8" id="phone"></div>
-                            </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Idade:</strong></div>
+                            <div class="col-sm-8" id="age"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Área de Atuação:</strong></div>
+                            <div class="col-sm-8" id="area"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Gênero:</strong></div>
+                            <div class="col-sm-8" id="gender"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Formação:</strong></div>
+                            <div class="col-sm-8" id="formation"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Localização:</strong></div>
+                            <div class="col-sm-8" id="location"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Descrição:</strong></div>
+                            <div class="col-sm-8" id="description"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Email:</strong></div>
+                            <div class="col-sm-8" id="email"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4"><strong>Telefone:</strong></div>
+                            <div class="col-sm-8" id="phone"></div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -123,8 +122,8 @@
 
         function generatePDF(html) {
             const doc = new jsPDF();
-            doc.fromHTML(html, 10, 10, { 
-                'width': 180 
+            doc.fromHTML(html, 10, 10, {
+                'width': 180
             });
             doc.save('Currículo.pdf');
         }

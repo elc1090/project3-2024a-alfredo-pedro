@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         window.location.href = 'resume.html';
     });
-
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        logout();
-    });
 });
 
 function getCookie(name) {
@@ -95,6 +90,7 @@ async function getUserInfo() {
     } else {
         document.getElementById('resume-title').textContent = "Você ainda não possui um currículo cadastrado."
         document.getElementById('edit-resume').textContent = "Criar currículo"
+        document.getElementById('generate-pdf').hidden = true;
         let cardDiv = document.getElementById('resume-card');
         cardDiv.innerHTML = "";
         cardDiv.removeAttribute('class');
